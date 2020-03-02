@@ -19,7 +19,7 @@
         <form>
 
             <input type='text' placeholder='search'>
-            <buttion type='submit'>Search</buttion>
+            <button type='submit'>Search</button>
         </form>
 
 
@@ -38,7 +38,18 @@
 
 
     <!--Script-->
-    <script></script>
+    <script>
+    const q = 'cats'
+    const apikey = 'wk3Q8s86m8hX706cc1Tb3yLC43DkB7E6'
+    const path = `https://api.giphy.com/v1/gifs/search?apikey=${apikey}&q=${q}`
+
+    fetch(path).then(function (res) {
+        return res.json()
+    }).then(function(json){
+      console.log(json)
+     }) 
+
+    </script>
 </body>
 
 
