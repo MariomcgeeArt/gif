@@ -5,33 +5,66 @@
 
 <title>
 
-    GIPH SEARCH
+    GIF SEARCH
     
 </title>
+
+<style>
+
+
+ 
+
+    .container{
+
+        width: calc(200px * 4  + 3em);
+        margin: auto;
+
+
+    }
+
+
+    .results {
+
+        columns: 4;
+        column-gap: 1em;
+    }
+
+    .item {
+        margin-bottom: 1em;
+    }
+
+
+
+
+
+</style>
+
+
+
+
+
 
 </head>
 
 <body>
 
-<div id="results" class= "container">
-    <header>
+<div class= "container">
+    <header>GIF SEARCH</header>
+        <form id="search-form">
+            
 
-        <form>
-
-            <input type='text' placeholder='search'>
+            <input id="search-input" type='text' placeholder='search'>
             <button type='submit'>Search</button>
         </form>
-
-
-
     </header>
-
-    <div class= "results">
-        <!--gif images will be here-->
+<br>
+    <div id='results'>
+        <!--gif images here -->
 
 
     </div>
 
+ 
 
 </div>
 
@@ -39,7 +72,22 @@
 
     <!--Script-->
     <script>
-    const q = 'wendy'
+
+        const searchForm = document.getElementById("search-form")
+        const searchInput = document.getElementById('search-input')
+        const resultsEl = document.getElementById('results')
+
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault()
+            const q = searchInput.value
+            search(q)
+        })
+
+
+
+        function search (q){
+
+    
     const apikey = 'wk3Q8s86m8hX706cc1Tb3yLC43DkB7E6'
     const path = `https://api.giphy.com/v1/gifs/search?apikey=${apikey}&q=${q}`
 
@@ -47,7 +95,7 @@
         return res.json()
     }).then(function(json){
       console.log(json.data [0]. images.fixed_width.url)
-      const resultsEl = document.getElementById('results')
+      
       let resultsHTML = ''
       json.data.forEach(function(obj){
           console.log(obj.images.fixed_width.url)
@@ -55,7 +103,7 @@
           const width = obj.images.fixed_width.width
           const height = obj.images.fixed_width.height
           const title = obj.title
-          resultsHTML += `<img src ="${url}" width="${width}" height="${height}"  alt="${title}">`
+          resultsHTML += `<img class="item" src ="${url}" width="${width}" height="${height}"  alt="${title}">`
       })
 
       resultsEl.innerHTML = resultsHTML
@@ -63,6 +111,9 @@
          console.log(err.message)
      })
 
+
+
+        }
     </script>
 </body>
 
